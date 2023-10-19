@@ -1,0 +1,18 @@
+let
+    var a : Integer;
+    var b : Integer;
+    var c : Integer;
+
+    var x : Char;
+    var y : Char
+in
+    {
+        a := 1;
+        b := 2;
+        a**;
+
+        b := 100;
+
+        x := 'A';
+        y := 'Z';
+    }

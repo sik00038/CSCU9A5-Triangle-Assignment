@@ -321,8 +321,8 @@ public class SummaryStats implements ActualParameterVisitor<Void, AbstractSyntax
 
 	@Override
 	public AbstractSyntaxTree visitCharacterExpression(CharacterExpression ast, Void arg) {
-		countCharExpr++; //Increment the count for stats
 		ast.CL.visit(this);
+		countCharExpr++; //Increment the count for stats after visiting
 		return null;
 	}
 
