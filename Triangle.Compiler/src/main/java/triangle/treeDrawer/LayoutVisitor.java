@@ -163,6 +163,16 @@ public class LayoutVisitor implements ActualParameterVisitor<Void, DrawingTree>,
 		var d2 = ast.C.visit(this);
 		return layoutBinary("WhileCom.", d1, d2);
 	}
+	
+	@Override
+	public DrawingTree visitLoopWhile(LoopWhile ast, Void arg) {
+		var d1 = ast.C1.visit(this);
+		var d2 = ast.E.visit(this);
+		var d3 = ast.C2.visit(this);
+		return layoutTernary("LoopWhile.", d1, d2, d3);
+	}
+	
+	
 
 	// Expressions
 	@Override
@@ -681,11 +691,4 @@ public class LayoutVisitor implements ActualParameterVisitor<Void, DrawingTree>,
 
 		return r;
 	}
-
-	@Override
-	public DrawingTree visitLoopWhile(LoopWhile loopWhile, Void arg) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

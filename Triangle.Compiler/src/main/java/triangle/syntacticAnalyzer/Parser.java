@@ -365,7 +365,6 @@ public class Parser {
 			accept(Token.BEGIN);
 			Command c1AST = parseCommand(); //C1 = LOOP
 			accept(Token.END);
-			
 			System.out.println("c1AST: " + c1AST.getPosition());
 			
 			accept(Token.WHILE);

@@ -25,6 +25,6 @@ public interface CommandVisitor<TArg, TResult> {
 
 	TResult visitWhileCommand(WhileCommand ast, TArg arg);
 
-	TResult visitLoopWhile(LoopWhile loopWhile, TArg arg);
+	TResult visitLoopWhile(LoopWhile ast, TArg arg);
 
 }

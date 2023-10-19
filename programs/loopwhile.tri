@@ -1,10 +1,14 @@
 ! print out ababababa
 
 let
-  var a : Integer
+  var a : Integer;
+  var b : Integer
 in
 begin
   a := 0;
+  b := 10;
+  putint(b);
+
   loop
   begin
     put('a');
