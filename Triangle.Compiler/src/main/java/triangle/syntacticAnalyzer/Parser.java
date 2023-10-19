@@ -41,6 +41,7 @@ import triangle.abstractSyntaxTrees.commands.Command;
 import triangle.abstractSyntaxTrees.commands.EmptyCommand;
 import triangle.abstractSyntaxTrees.commands.IfCommand;
 import triangle.abstractSyntaxTrees.commands.LetCommand;
+import triangle.abstractSyntaxTrees.commands.LoopWhile;
 import triangle.abstractSyntaxTrees.commands.SequentialCommand;
 import triangle.abstractSyntaxTrees.commands.WhileCommand;
 import triangle.abstractSyntaxTrees.declarations.ConstDeclaration;
@@ -355,6 +356,29 @@ public class Parser {
 			acceptIt();
 			commandAST = parseCommand();
 			accept(Token.RCURLY);
+			break;
+			
+		//Task 6
+		case Token.LOOP: {
+			acceptIt();
+			
+			accept(Token.BEGIN);
+			Command c1AST = parseCommand(); //C1 = LOOP
+			accept(Token.END);
+			
+			System.out.println("c1AST: " + c1AST.getPosition());
+			
+			accept(Token.WHILE);
+			Expression eAST = parseExpression(); //E = WHILE
+			System.out.println("eAST: " + eAST.getPosition());
+			
+			accept(Token.DO);
+			Command c2AST = parseSingleCommand(); //C2 = DO
+			System.out.println("c2AST: " + c2AST.getPosition());
+			
+			finish(commandPos);
+			commandAST = new LoopWhile(eAST, c1AST, c2AST, commandPos);
+		}
 			break;
 
 		case Token.SEMICOLON:

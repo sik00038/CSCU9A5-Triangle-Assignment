@@ -19,6 +19,7 @@ import triangle.abstractSyntaxTrees.commands.CallCommand;
 import triangle.abstractSyntaxTrees.commands.EmptyCommand;
 import triangle.abstractSyntaxTrees.commands.IfCommand;
 import triangle.abstractSyntaxTrees.commands.LetCommand;
+import triangle.abstractSyntaxTrees.commands.LoopWhile;
 import triangle.abstractSyntaxTrees.commands.SequentialCommand;
 import triangle.abstractSyntaxTrees.commands.WhileCommand;
 import triangle.abstractSyntaxTrees.declarations.BinaryOperatorDeclaration;
@@ -608,6 +609,12 @@ public class SummaryStats implements ActualParameterVisitor<Void, AbstractSyntax
 		}
 
 		// any unhandled situation (i.e., not foldable) is ignored
+		return null;
+	}
+
+	@Override
+	public AbstractSyntaxTree visitLoopWhile(LoopWhile loopWhile, Void arg) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

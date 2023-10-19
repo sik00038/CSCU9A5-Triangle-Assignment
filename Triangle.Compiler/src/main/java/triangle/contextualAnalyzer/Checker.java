@@ -38,6 +38,7 @@ import triangle.abstractSyntaxTrees.commands.CallCommand;
 import triangle.abstractSyntaxTrees.commands.EmptyCommand;
 import triangle.abstractSyntaxTrees.commands.IfCommand;
 import triangle.abstractSyntaxTrees.commands.LetCommand;
+import triangle.abstractSyntaxTrees.commands.LoopWhile;
 import triangle.abstractSyntaxTrees.commands.SequentialCommand;
 import triangle.abstractSyntaxTrees.commands.WhileCommand;
 import triangle.abstractSyntaxTrees.declarations.BinaryOperatorDeclaration;
@@ -980,5 +981,11 @@ public final class Checker implements ActualParameterVisitor<FormalParameter, Vo
 		StdEnvironment.unequalDecl = declareStdBinaryOp("\\=", StdEnvironment.anyType, StdEnvironment.anyType,
 				StdEnvironment.booleanType);
 
+	}
+
+	@Override
+	public Void visitLoopWhile(LoopWhile loopWhile, Void arg) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
