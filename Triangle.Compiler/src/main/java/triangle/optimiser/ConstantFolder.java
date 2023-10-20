@@ -496,6 +496,17 @@ public class ConstantFolder implements ActualParameterVisitor<Void, AbstractSynt
 		}
 		return null;
 	}
+	
+	@Override
+	public AbstractSyntaxTree visitLoopWhile(LoopWhile ast, Void arg) {
+		ast.C1.visit(this);
+		AbstractSyntaxTree replacement = ast.E.visit(this);
+		if (replacement != null) {
+			ast.E = (Expression) replacement;
+		}
+		ast.C2.visit(this);
+		return null;
+	}
 
 	// TODO uncomment if you've implemented the repeat command
 //	@Override
@@ -596,11 +607,4 @@ public class ConstantFolder implements ActualParameterVisitor<Void, AbstractSynt
 		// any unhandled situation (i.e., not foldable) is ignored
 		return null;
 	}
-
-	@Override
-	public AbstractSyntaxTree visitLoopWhile(LoopWhile loopWhile, Void arg) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

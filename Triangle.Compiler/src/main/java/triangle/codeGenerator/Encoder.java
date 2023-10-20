@@ -181,8 +181,26 @@ public final class Encoder implements ActualParameterVisitor<Frame, Integer>,
 		var loopAddr = emitter.getNextInstrAddr();
 		ast.C.visit(this, frame);
 		emitter.patch(jumpAddr);
+		
 		ast.E.visit(this, frame);
 		emitter.emit(OpCode.JUMPIF, Machine.trueRep, Register.CB, loopAddr);
+		return null;
+	}
+	
+	@Override
+	public Void visitLoopWhile(LoopWhile ast, Frame frame) {
+		var loopAddr = emitter.getNextInstrAddr();
+		ast.C1.visit(this, frame); //(LOOP = C1)
+		
+		ast.E.visit(this, frame); //check if the while is false first (WHILE = E)
+		var jumpIfAddr = emitter.emit(OpCode.JUMPIF, Machine.falseRep, Register.CB, 0);
+								  //store this address
+		
+		ast.C2.visit(this, frame); // visit the do section now (DO = C2)
+		emitter.emit(OpCode.JUMP, Machine.trueRep, Register.CB, loopAddr); //jump back to C1
+		
+		emitter.patch(jumpIfAddr); //patch the jmpIfAddr to go back to the while section
+	
 		return null;
 	}
 
@@ -793,11 +811,5 @@ public final class Encoder implements ActualParameterVisitor<Frame, Integer>,
 
 		var baseObject = (AddressableEntity) V.visit(this, frame);
 		baseObject.encodeFetchAddress(emitter, frame, V);
-	}
-
-	@Override
-	public Void visitLoopWhile(LoopWhile loopWhile, Frame arg) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

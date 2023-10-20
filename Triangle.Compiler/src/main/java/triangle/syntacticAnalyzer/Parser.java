@@ -386,7 +386,6 @@ public class Parser {
 		case Token.IN:
 		case Token.EOT:
 		case Token.RCURLY:
-
 			finish(commandPos);
 			commandAST = new EmptyCommand(commandPos);
 			break;

@@ -6,9 +6,6 @@ let
 in
 begin
   a := 0;
-  b := 10;
-  putint(b);
-
   loop
   begin
     put('a');
@@ -16,5 +13,4 @@ begin
   end
   while a < 5 do
   	put('b');
-  
 end
