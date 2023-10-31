@@ -600,9 +600,13 @@ public class ConstantFolder implements ActualParameterVisitor<Void, AbstractSynt
 				ie.type = StdEnvironment.integerType;
 				return ie;
 			} else if (foldedValue instanceof Boolean) {
+				//Task 7? 
+				System.out.println("Boolean Expr. ");
 				/* currently not handled! */
 			}
-		}
+		} else {
+			//?
+		} 
 
 		// any unhandled situation (i.e., not foldable) is ignored
 		return null;

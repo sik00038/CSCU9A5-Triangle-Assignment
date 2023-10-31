@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Term. colours for output
+RED='\033[0;31m'   # Red
+GRN='\033[0;32m'   # Green
+YLLW='\033[0;33m'  # Yellow
+NC='\033[0m'       # No Color
+
+TRI="" #.tri file
+
+# Check if the input in arg 1 ($1) is empty
+if [ -z "$1" ]
+    then # if empty...
+        printf "${YLLW}Usage: $0 *.tri file (optional: $0 *.tri tree)${NC}"
+        exit 1 # Exit with code 1, failure
+    else
+        TRI=$1
+fi
+
+#Remove the extension of the file
+FILENAME=$(echo $TRI | cut -f 1 -d '.')
+
+printf "${YLLW}[INFO] Compiling file: $FILENAME.tri to $FILENAME.tam ...${NC}\n"
+
+# Compile to tam
+if java -cp ../build/libs/Triangle-Tools.jar triangle.Compiler $FILENAME.tri -o=$FILENAME.tam &> /dev/null #quiet
+    then if [ -z "$2" ]
+            then #if second arg empty (really im not checking if you put tree)
+                printf "${GRN}[INFO] Running file: $FILENAME.tam ...${NC}\n"
+                java -cp ../build/libs/Triangle-Tools.jar triangle.abstractMachine.Interpreter $FILENAME.tam
+                exit 0
+            else #youve put tree, so lets see it!
+                printf "${GRN}[INFO] Running file: $FILENAME.tam ... and displaying AST${NC}\n"
+                java -cp ../build/libs/Triangle-Tools.jar triangle.Compiler $FILENAME.tri tree -o=$FILENAME.tam &> /dev/null #quiet
+                exit 0
+         fi
+    else #error msg
+        printf "${RED}[ERROR] Could not complie $FILENAME.tri ...${NC}"
+        err=$(java -cp ../build/libs/Triangle-Tools.jar triangle.Compiler $FILENAME.tri -o=$FILENAME.tam)
+        printf "${RED}\n$err\n${NC}"
+        exit 1 #exit with 1, failure
+fi
