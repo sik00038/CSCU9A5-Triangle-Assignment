@@ -611,7 +611,6 @@ public class ConstantFolder implements ActualParameterVisitor<Void, AbstractSynt
 				Identifier ti = new Identifier(foldedValue.toString(), node1.getPosition());
 				
 				if (ti.spelling == "true") {
-					System.out.println("True Decl thingy");
 					ti.decl = StdEnvironment.trueDecl;
 					SimpleVname sti = new SimpleVname(ti, node1.getPosition());
 					VnameExpression esti = new VnameExpression(sti, node1.getPosition());
@@ -619,7 +618,6 @@ public class ConstantFolder implements ActualParameterVisitor<Void, AbstractSynt
 					return esti;
 					
 				} else if (ti.spelling == "false") {
-					System.out.println("False Decl thingy");
 					ti.decl = StdEnvironment.falseDecl;
 					SimpleVname sti = new SimpleVname(ti, node1.getPosition());
 					VnameExpression esti = new VnameExpression(sti, node1.getPosition());
