@@ -592,23 +592,51 @@ public class ConstantFolder implements ActualParameterVisitor<Void, AbstractSynt
 			
 			if (o.decl == StdEnvironment.addDecl) {
 				foldedValue = int1 + int2;
+			} else if (o.decl == StdEnvironment.greaterDecl) {
+				foldedValue = int1 > int2;
+			} else if (o.decl == StdEnvironment.equalDecl) {
+				foldedValue = int1 == int2;
+			} else if (o.decl == StdEnvironment.lessDecl) {
+				foldedValue = int1 < int2;
+			} else if (o.decl == StdEnvironment.notgreaterDecl) {
+				foldedValue = int1 <= int2;
+			} else if (o.decl == StdEnvironment.notlessDecl) {
+				foldedValue = int1 >= int2;
+			} else if (o.decl == StdEnvironment.unequalDecl) {
+				foldedValue = int1 /= int2;
+			} else {
 			}
-
+			
+			if (foldedValue.toString() == "true" || foldedValue.toString() == "false") {
+				Identifier ti = new Identifier(foldedValue.toString(), node1.getPosition());
+				
+				if (ti.spelling == "true") {
+					System.out.println("True Decl thingy");
+					ti.decl = StdEnvironment.trueDecl;
+					SimpleVname sti = new SimpleVname(ti, node1.getPosition());
+					VnameExpression esti = new VnameExpression(sti, node1.getPosition());
+					esti.type = StdEnvironment.booleanType;
+					return esti;
+					
+				} else if (ti.spelling == "false") {
+					System.out.println("False Decl thingy");
+					ti.decl = StdEnvironment.falseDecl;
+					SimpleVname sti = new SimpleVname(ti, node1.getPosition());
+					VnameExpression esti = new VnameExpression(sti, node1.getPosition());
+					esti.type = StdEnvironment.booleanType;
+					return esti;
+				} 
+				
+			}
+				
 			if (foldedValue instanceof Integer) {
 				IntegerLiteral il = new IntegerLiteral(foldedValue.toString(), node1.getPosition());
 				IntegerExpression ie = new IntegerExpression(il, node1.getPosition());
 				ie.type = StdEnvironment.integerType;
 				return ie;
-			} else if (foldedValue instanceof Boolean) {
-				//Task 7? 
-				System.out.println("Boolean Expr. ");
-				/* currently not handled! */
 			}
-		} else {
-			//?
+			
 		} 
-
-		// any unhandled situation (i.e., not foldable) is ignored
 		return null;
 	}
 }
